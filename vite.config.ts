@@ -2,7 +2,7 @@ import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { visualizer } from 'rollup-plugin-visualizer';
 
-const { resolve } = require('path'); // 编辑器提示 path 模块找不到，可以yarn add @types/node --dev
+import { resolve } from 'path'; // 编辑器提示 path 模块找不到，可以yarn add @types/node --dev
 
 // https://vitejs.dev/config/
 export default ({ command, mode }) => {
