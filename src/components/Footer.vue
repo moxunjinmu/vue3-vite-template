@@ -4,7 +4,7 @@ import { isDark, toggleDark } from '@/composables';
 
 <template>
   <nav
-    text-8xl
+    text-9xl
     mt-6
     inline-flex
     gap-2
