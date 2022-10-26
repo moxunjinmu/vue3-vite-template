@@ -1,0 +1,3 @@
+# .eslintignore
+auto-imports.d.ts
+env.d.ts

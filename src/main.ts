@@ -2,7 +2,9 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router/index';
 import store from './store/index';
+import '@unocss/reset/tailwind.css';
 import './styles/main.css';
+import 'uno.css';
 
 const app = createApp(App);
 // 插件自动加载

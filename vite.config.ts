@@ -1,7 +1,12 @@
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { visualizer } from 'rollup-plugin-visualizer';
-
+import Components from 'unplugin-vue-components/vite';
+import AutoImport from 'unplugin-auto-import/vite';
+import {
+  VueUseComponentsResolver,
+} from 'unplugin-vue-components/resolvers';
+import unocss from 'unocss/vite';
 import { resolve } from 'path'; // 编辑器提示 path 模块找不到，可以yarn add @types/node --dev
 
 // https://vitejs.dev/config/
@@ -12,14 +17,46 @@ export default ({ command, mode }) => {
   }
 
   return defineConfig({
-    plugins: [vue(), visualizer({
-      emitFile: false,
-      filename: 'report.html', // 分析图生成的文件名
-      open: false, // 如果存在本地服务端口，将在打包后自动展示
-    })],
+    plugins: [
+      vue(), 
+      visualizer({
+        emitFile: false,
+        filename: 'report.html', // 分析图生成的文件名
+        open: false, // 如果存在本地服务端口，将在打包后自动展示
+      }),
+      unocss(),
+      Components({
+        dts: 'components.d.ts',
+        extensions: ['vue', 'md'],
+        include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+        resolvers: [
+          // ElementPlusResolver(),
+          // IconsResolver({
+          //   prefix: '',
+          // }),
+          // NaiveUiResolver(),
+          VueUseComponentsResolver(),
+        ],
+      }),
+      AutoImport({
+        imports: [
+          'vue',
+          'vue-router',
+          'pinia',
+          '@vueuse/core',
+        ],
+        // eslint报错解决
+        eslintrc: {
+          enabled: true, // Default `false`
+          filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
+          globalsPropValue: true, // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
+        },
+        dts: 'src/auto-imports.d.ts',
+      }),
+    ],
     resolve: {
       alias: {
-        '@': resolve(__dirname, 'src'), // 设置 `@` 指向 `src` 目录
+        '@/': `${ resolve(__dirname, 'src') }/`, // 设置 `@` 指向 `src` 目录
       },
     },
     // 开发或生产环境服务的公共基础路径 默认 '/'
