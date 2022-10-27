@@ -21,9 +21,6 @@ export default ({ command, mode }) => {
   return defineConfig({
     plugins: [
       vue(),
-      viteMockServe({
-        mockPath: './mock/',
-      }), 
       visualizer({
         emitFile: false,
         filename: 'report.html', // 分析图生成的文件名
@@ -52,12 +49,16 @@ export default ({ command, mode }) => {
         ],
         // eslint报错解决
         eslintrc: {
-          enabled: true, // Default `false`
+          enabled: false, // Default `false`
           filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
           globalsPropValue: true, // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
         },
         dts: 'src/auto-imports.d.ts',
       }),
+      viteMockServe({
+        mockPath: './mock/',
+        supportTs: true,
+      }), 
     ],
     resolve: {
       alias: {
