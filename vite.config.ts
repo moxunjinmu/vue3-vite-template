@@ -7,6 +7,8 @@ import {
   VueUseComponentsResolver,
 } from 'unplugin-vue-components/resolvers';
 import unocss from 'unocss/vite';
+// 引入viteMockServe
+import { viteMockServe } from 'vite-plugin-mock';
 import { resolve } from 'path'; // 编辑器提示 path 模块找不到，可以yarn add @types/node --dev
 
 // https://vitejs.dev/config/
@@ -18,7 +20,10 @@ export default ({ command, mode }) => {
 
   return defineConfig({
     plugins: [
-      vue(), 
+      vue(),
+      viteMockServe({
+        mockPath: './mock/',
+      }), 
       visualizer({
         emitFile: false,
         filename: 'report.html', // 分析图生成的文件名
