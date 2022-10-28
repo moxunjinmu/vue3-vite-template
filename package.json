@@ -13,6 +13,7 @@
     "axios": "^0.26.1",
     "rollup": "2.79.1",
     "vue": "^3.2.41",
+    "vue-request": "2.0.0-rc.4",
     "vue-router": "4"
   },
   "devDependencies": {
@@ -30,6 +31,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-vue": "7.20.0",
     "mockjs": "^1.1.0",
+    "naive-ui": "^2.33.5",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.23",
     "rollup-plugin-visualizer": "^5.8.3",
