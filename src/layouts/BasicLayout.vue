@@ -20,6 +20,7 @@
     </template> -->
     <RouterView v-slot="{ Component, route }">
       <transition name="slide-left" mode="out-in">
+        <!-- 动画组件需要单节点/单组件才能生效 -->
         <div>
           <component :is="Component" :key="route.path" />
         </div>
