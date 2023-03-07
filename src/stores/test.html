@@ -1,0 +1,53 @@
+<!--
+ * @Author: fangkg
+ * @Date: 2022-07-07 17:33:01
+ * @LastModifiedBy: fangkg
+ * @LastEditTime: 2022-07-07 17:33:03
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/aes.min.js"></script>
+    <script type="text/javascript">
+ 
+        function Encrypt(word) {
+            alert(encrypt(word));
+        }
+ 
+        function encrypt(params) {
+            var key = CryptoJS.enc.Utf8.parse('1234567812345678');
+            var iv = CryptoJS.enc.Hex.parse('0000000000000000');
+            var src = CryptoJS.enc.Utf8.parse(params);
+            var encrypted = CryptoJS.AES.encrypt(src, key, {
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            var encryptStr = encrypted.ciphertext;
+            return CryptoJS.enc.Hex.stringify(encryptStr);
+        }
+ 
+        function decode() {
+            var key1 = CryptoJS.enc.Utf8.parse('1234567812345678');
+            var iv1 = CryptoJS.enc.Hex.parse('0000000000000000');
+            var s = CryptoJS.enc.Hex.parse('e288499df01a8cdceba589be9843c74271572dbaf9576fdbbd85cf8a8de8520d');
+            var src1 = CryptoJS.enc.Base64.stringify(s);
+            var encrypted1 = CryptoJS.AES.decrypt(src1, key1, {
+                iv: iv1,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            console.log(encrypted1.toString(CryptoJS.enc.Utf8));
+            return encrypted1.toString(CryptoJS.enc.Utf8);
+        }
+ 
+    </script>
+</head>
+<body>
+    <button onclick="Encrypt('1655789707024:123')">点点点</button>
+    <button onclick="decode()">解解解</button>
+</body>
+</html>

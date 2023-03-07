@@ -1,11 +1,10 @@
 import request from '@/utils/request';
+import { Login } from '@/Type';
 
-export function get() {
+export function getLogin(params: Login) {
   return request({
-    url: 'get',
+    url: '/login',
     method: 'GET',
-    params: {
-      test: '',
-    },
+    params,
   });
 }
