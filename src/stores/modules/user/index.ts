@@ -1,20 +1,52 @@
 import { defineStore } from 'pinia';
 import { UserState } from './type';
+import { setToken, getToken, removeToken } from '@/utils/auth';
+import { saveCache, deleteCache, getCache, clearCache } from '@/utils/cache';
+import { USER_INFO_KEY } from '@/utils/cache/cacheEnum';
 
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
-    token:
-      'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxODMsInVzZXJuYW1lIjoiMTM2NzcyMTEwOTYiLCJleHAiOjE2NTcwMDU4ODYsImVtYWlsIjoiIiwib3JpZ19pYXQiOjE2NTcwMDQwODYsInV1aWQiOiI3MjYxMmE4ZC1iY2Q0LTQ2YTUtYTYyYS05NWEwYjEzZTYxMTciLCJ1c2VyX3R5cGUiOiIyIiwiaXNfc3VwZXJ1c2VyIjpmYWxzZSwicm9sZXMiOlsiQ29tbW9uIl0sInBlcm1pc3Npb25zIjpbXX0.f4wOvlvn5Y92_JBcholBvvRo4QmTZMjkUnntEA3ZoWo',
+    token: '',
+    user: {},
   }),
   getters: {
     userProfile(state: UserState): UserState {
       return { ...state };
+    },
+    getToken(state: UserState) {
+      return state.token || getToken();
+    },
+    getUser() {
+      return getCache(USER_INFO_KEY);
     },
   },
   actions: {
     // 设置用户的信息
     setInfo(partial: Partial<UserState>) {
       this.$patch(partial);
+    },
+    setToken(token: string) {
+      this.$patch((state) => {
+        state.token = token;
+      });
+      // 存储到本地缓存
+      setToken(token);
+    },
+    setUser(user: object) {
+      this.$patch((state) => {
+        state.user = user;
+      });
+      saveCache(USER_INFO_KEY, user);
+    },
+    loginSuccess(userInfo: any) {
+      console.log('userInfo', userInfo);
+      this.setToken(userInfo.data.access);
+      this.setUser(userInfo);
+    },
+    loginout() {
+      this.setToken('');
+      clearCache();
+      removeToken();
     },
   },
 });

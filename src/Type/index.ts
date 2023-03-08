@@ -1,5 +1,3 @@
-import { Ref } from 'vue';
-
 export interface Login {
   password: string;
   name: string;
@@ -7,4 +5,5 @@ export interface Login {
 
 export interface UserState {
   token: string;
+  user: object;
 }

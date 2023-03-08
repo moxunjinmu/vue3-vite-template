@@ -1,8 +1,7 @@
 <script setup lang="ts" name='login'>
-import { ref } from 'vue';
 import { loginModal } from '@/hooks/loginModal';
 
-const { name, password, login } = loginModal();
+const { username, password, login } = loginModal();
 
 </script>
 <template>
@@ -15,7 +14,7 @@ const { name, password, login } = loginModal();
         <div class="lay lay1">
           <h2><img src="/src/assets/images/sign1.png" /></h2>
           <input
-            v-model="name"
+            v-model="username"
             type="text"
             name="userName"
             lay-verify="userName"

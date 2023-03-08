@@ -6,7 +6,7 @@
  * @Description: 
 -->
 <template>
-  <div>
+  <div class="BasicLayout">
     <!-- <template #menuHeaderRender> -->
     <router-link :to="{ path: '/' }">
       <img src="@/assets/logo.png" />
@@ -18,6 +18,7 @@
     <template #rightContentRender>
       <RightContent :current-user="currentUser" />
     </template> -->
+    
     <RouterView v-slot="{ Component, route }">
       <transition name="slide-left" mode="out-in">
         <!-- 动画组件需要单节点/单组件才能生效 -->
